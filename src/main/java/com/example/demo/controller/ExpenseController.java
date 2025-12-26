@@ -28,12 +28,26 @@ public class ExpenseController {
     public List<Expense> getAllExpenses(){
         return expenseRepository.findAll();
     }
-    // Show one by just adding /<id #>
+
+    // Show and expense by just giving "/<id #>"
     @GetMapping("/{id}")
     public Expense getExpense(@PathVariable Long id){
         return expenseRepository.findById(id).orElseThrow( () ->
-                new RuntimeException("No expense found with id: " + id)
+                new RuntimeException("NO EXPENSE FOUND WITH ID: " + id)
         );
+    }
+    // This looks for an expense then updates it with whatever is new from the ExpenseRequest parameter.
+    @PutMapping("/{id}")
+    public Expense updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest request){
+
+        Expense updatedExpense = expenseRepository.findById(id).orElseThrow( () ->
+                new RuntimeException("NO EXPENSE FOUND WITH ID: " + id)
+        );
+
+        updatedExpense.setAmount(request.getAmount());
+        updatedExpense.setDescription(request.getDescription());
+
+        return expenseRepository.save(updatedExpense);
     }
 
 
@@ -50,7 +64,7 @@ public class ExpenseController {
 
         Category category = categoryRepository.findById(1L).orElseGet( () -> {
             Category newCategory = new Category();
-            newCategory.setName("testRunCategory");
+            newCategory.setName("testCategory");
             newCategory.setUser(user);
             return categoryRepository.save(newCategory); });
 
