@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Expense;
@@ -28,6 +28,14 @@ public class ExpenseController {
     public List<Expense> getAllExpenses(){
         return expenseRepository.findAll();
     }
+    // Show one by just adding /<id #>
+    @GetMapping("/{id}")
+    public Expense getExpense(@PathVariable Long id){
+        return expenseRepository.findById(id).orElseThrow( () ->
+                new RuntimeException("No expense found with id: " + id)
+        );
+    }
+
 
     @PostMapping
     public Expense createExpense(@RequestBody ExpenseRequest request){
