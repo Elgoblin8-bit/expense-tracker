@@ -38,7 +38,7 @@ createdb expense_tracker
 3. Configure database credentials
 ```bash
 cp src/main/resources/application.properties.example src/main/resources/application.properties
-# Edit application.properties with your PostgreSQL credentials
+# Edit application.properties with PostgreSQL credentials
 ```
 
 4. Run the application

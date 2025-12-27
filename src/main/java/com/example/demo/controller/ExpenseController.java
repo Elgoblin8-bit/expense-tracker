@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import com.example.demo.entity.Category;
 import com.example.demo.entity.Expense;
@@ -29,6 +29,33 @@ public class ExpenseController {
         return expenseRepository.findAll();
     }
 
+    // Show and expense by just giving "/<id #>"
+    @GetMapping("/{id}")
+    public Expense getExpense(@PathVariable Long id){
+        return expenseRepository.findById(id).orElseThrow( () ->
+                new RuntimeException("NO EXPENSE FOUND WITH ID: " + id)
+        );
+    }
+
+    // This looks for an expense then updates it with whatever is new from the ExpenseRequest parameter.
+    @PutMapping("/{id}")
+    public Expense updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest request){
+
+        Expense updatedExpense = expenseRepository.findById(id).orElseThrow( () ->
+                new RuntimeException("NO EXPENSE FOUND WITH ID: " + id)
+        );
+
+        updatedExpense.setAmount(request.getAmount());
+        updatedExpense.setDescription(request.getDescription());
+
+        return expenseRepository.save(updatedExpense);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteExpense(@PathVariable Long id){
+        return false;
+    }
+
     @PostMapping
     public Expense createExpense(@RequestBody ExpenseRequest request){
 
@@ -42,7 +69,7 @@ public class ExpenseController {
 
         Category category = categoryRepository.findById(1L).orElseGet( () -> {
             Category newCategory = new Category();
-            newCategory.setName("testRunCategory");
+            newCategory.setName("testCategory");
             newCategory.setUser(user);
             return categoryRepository.save(newCategory); });
 
