@@ -36,6 +36,7 @@ public class ExpenseController {
                 new RuntimeException("NO EXPENSE FOUND WITH ID: " + id)
         );
     }
+
     // This looks for an expense then updates it with whatever is new from the ExpenseRequest parameter.
     @PutMapping("/{id}")
     public Expense updateExpense(@PathVariable Long id, @RequestBody ExpenseRequest request){
@@ -50,6 +51,10 @@ public class ExpenseController {
         return expenseRepository.save(updatedExpense);
     }
 
+    @DeleteMapping("/{id}")
+    public boolean deleteExpense(@PathVariable Long id){
+        return false;
+    }
 
     @PostMapping
     public Expense createExpense(@RequestBody ExpenseRequest request){
