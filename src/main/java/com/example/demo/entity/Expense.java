@@ -42,7 +42,6 @@ public class Expense {
     public void setAmount(BigDecimal amount) {
         this.amount = amount; }
 
-
     public String getDescription() {
         return description; }
 

@@ -50,10 +50,10 @@ public class ExpenseController {
 
         return expenseRepository.save(updatedExpense);
     }
-
+    // If an expense exists for the id given delete it
     @DeleteMapping("/{id}")
-    public boolean deleteExpense(@PathVariable Long id){
-        return false;
+    public void deleteExpense(@PathVariable Long id){
+        expenseRepository.deleteById(id);
     }
 
     @PostMapping
