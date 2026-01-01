@@ -66,6 +66,9 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     public void deleteCategory(@PathVariable Long id){
+        // if (!){
+        // throw new RuntimeException("CANNOT DELETE THIS CATEGORY. THERE IS AN EXPENSE ASSOCIATED.");
+        // }
          categoryRepository.deleteById(id);
     }
 
